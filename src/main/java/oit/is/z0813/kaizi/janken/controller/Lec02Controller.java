@@ -58,6 +58,7 @@ public class Lec02Controller {
     String loginUser = prin.getName();
     this.room.addUser(loginUser);
     model.addAttribute("room", this.room);
+    model.addAttribute("user", loginUser);
 
     return "lec02.html";
   }
