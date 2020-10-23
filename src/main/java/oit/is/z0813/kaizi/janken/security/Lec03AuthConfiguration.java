@@ -17,6 +17,7 @@ public class Lec03AuthConfiguration extends WebSecurityConfigurerAdapter {
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.inMemoryAuthentication().withUser("user1").password(passwordEncoder().encode("pAssw0rd")).roles("USER");
     auth.inMemoryAuthentication().withUser("user2").password(passwordEncoder().encode("pAssw0rD")).roles("USER");
+    auth.inMemoryAuthentication().withUser("かみむら").password(passwordEncoder().encode("password")).roles("USER");
   }
     @Bean
   PasswordEncoder passwordEncoder() {
