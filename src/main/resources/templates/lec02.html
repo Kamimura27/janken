@@ -12,6 +12,11 @@
     </ul>
   </div>
   <p>[[${user}]]</p>
+  <div><a href="/lec02/1">小屋に最初に入室した人</a></div>
+  <div th:if="${user2}">
+    ID:[[${user2.id}]]
+    入室者:[[${user2.name}]]
+  </div>
   <p>
     <a href="/gu">グー</a>
     <a href="/choki">チョキ</a>
