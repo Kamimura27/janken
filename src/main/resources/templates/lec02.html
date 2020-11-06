@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
 <head>
   <meta charset="utf-8">
 </head>
+
 <body>
   <div><a href="/logout">ログアウト</a></div>
-  <p>エントリー</p>
-  <div th:if="${room}">
+  <p>Hi [[${user}]]</p>
+  <h1>エントリー</h1>
+  <div>
     <ul>
-      <li th:each="user : ${room.users}">[[${user}]]</li>
+      <li th:each="user1,stat:${user2}"><a th:href="@{/match(id=${user1.id})}">[[${user1.name}]]</a></li>
     </ul>
   </div>
-  <p>[[${user}]]</p>
-  <div><a href="/lec02/1">小屋に最初に入室した人</a></div>
-  <div th:if="${user2}">
-    ID:[[${user2.id}]]
-    入室者:[[${user2.name}]]
-  </div>
 
-  <div><a href="/lec02/result">試合結果</a></div>
+  <h2>試合結果</h2>
   <div th:each="match1,stat:${match2}">
     <tr>
       <td>id:[[${match1.id}]]</td>
       <td>user_1:[[${match1.user_1}]]</td>
       <td>user2:[[${match1.user_2}]]</td>
       <td>user1の手:[[${match1.user_1_hand}]]</td>
-    <td>user2の手:[[${match1.user_2_hand}]]</td>
+      <td>user2の手:[[${match1.user_2_hand}]]</td>
     </tr>
   </div>
 
@@ -41,4 +38,5 @@
     結果 [[${syouhai}]]</br>
   </div>
 </body>
+
 </html>
