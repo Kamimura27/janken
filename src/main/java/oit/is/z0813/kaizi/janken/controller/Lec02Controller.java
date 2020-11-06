@@ -74,26 +74,22 @@ public class Lec02Controller {
     String loginUser = prin.getName();
     this.room.addUser(loginUser);
     model.addAttribute("room", this.room);
-    model.addAttribute("user", "Hi "+loginUser);
+    model.addAttribute("user", loginUser);
 
-    return "lec02.html";
-  }
-
-
-  @GetMapping("lec02/{id}")
-  public String step2(@PathVariable Integer id, ModelMap model) {
-    User user2 = userMapper.selectById(id);
+    ArrayList<User> user2 = userMapper.selectAll();
     model.addAttribute("user2", user2);
 
-    return "lec02.html";
-  }
-
-  @GetMapping("lec02/result")
-  public String step3(ModelMap model) {
     ArrayList<Match> match2 = matchMapper.selectAll();
     model.addAttribute("match2", match2);
-
     return "lec02.html";
+  }
+  @GetMapping("match")
+  public String match(Principal prin, ModelMap model){
+    String loginUser = prin.getName();
+
+    model.addAttribute("user", loginUser);
+
+    return "match.html";
   }
 
 }

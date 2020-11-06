@@ -10,14 +10,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-  @Select("SELECT id, name from users where id = #{id}")
-  User selectById(int id);
-
-  
-
-  //@Insert("INSERT INTO USER (id, name) VALUES (#{id},#{name});")
-  //@Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
-  //void insertUSER(User user);
-
-
+  @Select("SELECT * from users")
+  ArrayList<User> selectAll();
 }
