@@ -38,35 +38,64 @@ public class Lec02Controller {
 
   @PostMapping("/lec02")
   public String index(String name, ModelMap model) {
-    model.addAttribute("username", "Hi "+ name);
+    model.addAttribute("username",name);
     return "lec02.html";
   }
-  @GetMapping("/gu")
+
+  @GetMapping("/match")
+  public String match(Principal prin, ModelMap model){
+    String loginUser = prin.getName();
+    model.addAttribute("user", loginUser);
+    return "match.html";
+  }
+
+  @GetMapping("/match/gu")
     public String gu(ModelMap model){
-      String hand ="グー";
+      String hand ="Gu";
       Janken janken = new Janken(hand);
+      Match match = new Match();
+
+      match.setUser_1(2);
+      match.setUser_2(1);
+      match.setUser_1_hand("Gu");
+      match.setUser_2_hand(hand);
+      matchMapper.insertMatch(match);
 
       model.addAttribute("yourhand", hand);
       model.addAttribute("syouhai", janken.syouhai);
-      return "lec02.html";
+      return "match.html";
     }
-  @GetMapping("/choki")
+  @GetMapping("/match/choki")
     public String choki(ModelMap model){
-      String hand ="チョキ";
+      String hand ="Choki";
       Janken janken = new Janken(hand);
+      Match match = new Match();
+
+      match.setUser_1(2);
+      match.setUser_2(1);
+      match.setUser_1_hand("Gu");
+      match.setUser_2_hand(hand);
+      matchMapper.insertMatch(match);
 
       model.addAttribute("yourhand", hand);
       model.addAttribute("syouhai", janken.syouhai);
-      return "lec02.html";
+      return "match.html";
     }
-  @GetMapping("/pa")
+  @GetMapping("/match/pa")
     public String pa(ModelMap model){
-      String hand ="パー";
+      String hand ="Pa";
       Janken janken = new Janken(hand);
+      Match match = new Match();
+
+      match.setUser_1(2);
+      match.setUser_2(1);
+      match.setUser_1_hand("Gu");
+      match.setUser_2_hand(hand);
+      matchMapper.insertMatch(match);
 
       model.addAttribute("yourhand", hand);
       model.addAttribute("syouhai", janken.syouhai);
-      return "lec02.html";
+      return "match.html";
     }
 
   @GetMapping("lec02")
@@ -83,13 +112,4 @@ public class Lec02Controller {
     model.addAttribute("match2", match2);
     return "lec02.html";
   }
-  @GetMapping("match")
-  public String match(Principal prin, ModelMap model){
-    String loginUser = prin.getName();
-
-    model.addAttribute("user", loginUser);
-
-    return "match.html";
-  }
-
 }
