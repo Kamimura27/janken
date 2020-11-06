@@ -9,10 +9,21 @@
 <body>
   <div><a href="/logout">ログアウト</a></div>
   <h1>Match</h1>
+
   <h2>
     [[${user}]] V.S. CPU
   </h2>
-
+  <p>
+    <a href="/match/gu">グー</a>
+    <a href="/match/choki">チョキ</a>
+    <a href="/match/pa">パー</a>
+  </p>
+  <div th:if="${syouhai}">
+    あなたの手 [[${yourhand}]]</br>
+    あいての手 Gu</br>
+    結果 [[${syouhai}]]</br>
+  </div>
+  <a href="/lec02">もどる</a>
 </body>
 
 </html>

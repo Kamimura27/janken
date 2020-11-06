@@ -3,13 +3,13 @@ package oit.is.z0813.kaizi.janken.model;
 public class Janken{
   public String syouhai;
   public Janken(String hand){
-    if(hand == "グー"){
+    if(hand == "Gu"){
       syouhai= "あいこ";
     }
-    if(hand == "チョキ"){
+    if(hand == "Choki"){
       syouhai="You Lose";
     }
-    if(hand == "パー"){
+    if(hand == "Pa"){
       syouhai = "You Win!!";
     }
   }
