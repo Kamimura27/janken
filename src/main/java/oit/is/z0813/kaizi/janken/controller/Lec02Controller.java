@@ -17,6 +17,9 @@ import oit.is.z0813.kaizi.janken.model.User;
 import oit.is.z0813.kaizi.janken.model.UserMapper;
 import oit.is.z0813.kaizi.janken.model.Entry;
 import oit.is.z0813.kaizi.janken.model.Janken;
+import oit.is.z0813.kaizi.janken.model.Match;
+import oit.is.z0813.kaizi.janken.model.MatchMapper;
+
 
 //import oit.is.z0813.kaizi.janken.model.ChamberUser;
 //import oit.is.z0813.kaizi.janken.model.UserInfo;
@@ -29,6 +32,9 @@ public class Lec02Controller {
 
   @Autowired
   UserMapper userMapper;
+
+  @Autowired
+  MatchMapper matchMapper;
 
   @PostMapping("/lec02")
   public String index(String name, ModelMap model) {
@@ -78,6 +84,14 @@ public class Lec02Controller {
   public String step2(@PathVariable Integer id, ModelMap model) {
     User user2 = userMapper.selectById(id);
     model.addAttribute("user2", user2);
+
+    return "lec02.html";
+  }
+
+  @GetMapping("lec02/result")
+  public String step3(ModelMap model) {
+    ArrayList<Match> match2 = matchMapper.selectAll();
+    model.addAttribute("match2", match2);
 
     return "lec02.html";
   }
