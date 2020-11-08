@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import oit.is.z0813.kaizi.janken.model.User;
 import oit.is.z0813.kaizi.janken.model.UserMapper;
@@ -21,6 +22,7 @@ import oit.is.z0813.kaizi.janken.model.Match;
 import oit.is.z0813.kaizi.janken.model.MatchMapper;
 import oit.is.z0813.kaizi.janken.model.MatchInfo;
 import oit.is.z0813.kaizi.janken.model.MatchInfoMapper;
+import oit.is.z0813.kaizi.janken.service.AsyncKekka;
 
 @Controller
 public class Lec02Controller {
@@ -36,6 +38,9 @@ public class Lec02Controller {
 
   @Autowired
   MatchInfoMapper matchInfoMapper;
+
+  @Autowired
+  AsyncKekka kekka;
 
   @PostMapping("/lec02")
   public String index(String name, ModelMap model) {
@@ -78,61 +83,9 @@ public class Lec02Controller {
     model.addAttribute("syouhai", janken.syouhai);
     model.addAttribute("user", loginUser);
     model.addAttribute("user3", user);
-      return "match.html";
+      return "wait.html";
   }
 
-
-/*
-  @GetMapping("/match/gu")
-  @Transactional
-    public String gu(ModelMap model, @RequestParam String hand){
-      //String hand ="Gu";
-      Janken janken = new Janken(hand);
-      Match match = new Match();
-
-      match.setUser_1(2);
-      match.setUser_2(1);
-      match.setUser_1_hand("Gu");
-      match.setUser_2_hand(hand);
-      matchMapper.insertMatch(match);
-
-      model.addAttribute("yourhand", hand);
-      model.addAttribute("syouhai", janken.syouhai);
-      return "match.html";
-    }
-  @GetMapping("/match/choki")
-    public String choki(ModelMap model){
-      String hand ="Choki";
-      Janken janken = new Janken(hand);
-      Match match = new Match();
-
-      match.setUser_1(2);
-      match.setUser_2(1);
-      match.setUser_1_hand("Gu");
-      match.setUser_2_hand(hand);
-      matchMapper.insertMatch(match);
-
-      model.addAttribute("yourhand", hand);
-      model.addAttribute("syouhai", janken.syouhai);
-      return "match.html";
-    }
-  @GetMapping("/match/pa")
-    public String pa(ModelMap model){
-      String hand ="Pa";
-      Janken janken = new Janken(hand);
-      Match match = new Match();
-
-      match.setUser_1(2);
-      match.setUser_2(1);
-      match.setUser_1_hand("Gu");
-      match.setUser_2_hand(hand);
-      matchMapper.insertMatch(match);
-
-      model.addAttribute("yourhand", hand);
-      model.addAttribute("syouhai", janken.syouhai);
-      return "match.html";
-    }
-*/
   @GetMapping("lec02")
   public String sample38(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
@@ -146,5 +99,12 @@ public class Lec02Controller {
     ArrayList<Match> match2 = matchMapper.selectAll();
     model.addAttribute("match2", match2);
     return "lec02.html";
+  }
+
+  @GetMapping("live")
+  public SseEmitter Wait(){
+    final SseEmitter sseEmitter = new SseEmitter();
+    this.kekka.asyncWait(sseEmitter);
+    return sseEmitter;
   }
 }
