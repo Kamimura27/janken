@@ -19,10 +19,8 @@ import oit.is.z0813.kaizi.janken.model.Entry;
 import oit.is.z0813.kaizi.janken.model.Janken;
 import oit.is.z0813.kaizi.janken.model.Match;
 import oit.is.z0813.kaizi.janken.model.MatchMapper;
-
-
-//import oit.is.z0813.kaizi.janken.model.ChamberUser;
-//import oit.is.z0813.kaizi.janken.model.UserInfo;
+import oit.is.z0813.kaizi.janken.model.MatchInfo;
+import oit.is.z0813.kaizi.janken.model.MatchInfoMapper;
 
 @Controller
 public class Lec02Controller {
@@ -36,6 +34,9 @@ public class Lec02Controller {
   @Autowired
   MatchMapper matchMapper;
 
+  @Autowired
+  MatchInfoMapper matchInfoMapper;
+
   @PostMapping("/lec02")
   public String index(String name, ModelMap model) {
     model.addAttribute("username",name);
@@ -43,15 +44,49 @@ public class Lec02Controller {
   }
 
   @GetMapping("/match")
-  public String match(Principal prin, ModelMap model){
+  //@Transactional
+  public String match(Principal prin, ModelMap model, @RequestParam Integer id){
     String loginUser = prin.getName();
+    MatchInfo matchInfo = new MatchInfo();
+    User user = userMapper.selectById(id);
+
+    matchInfo.setUser_1(2);
+    matchInfo.setUser_2(1);
+    matchInfo.setIs_active(true);
+    matchInfoMapper.insertMatchInfo(matchInfo);
+
     model.addAttribute("user", loginUser);
+    model.addAttribute("user2", user);
     return "match.html";
   }
 
+  @GetMapping("/result")
+  public String result(Principal prin, ModelMap model, @RequestParam Integer id, @RequestParam Integer hand){
+
+    String loginUser = prin.getName();
+    Janken janken = new Janken(hand);
+    Match match = new Match();
+    User user = userMapper.selectById(id);
+
+    match.setUser_1(2);
+    match.setUser_2(1);
+    match.setUser_1_hand("Gu");
+    match.setUser_2_hand(janken.yourhand);
+    matchMapper.insertMatch(match);
+
+    model.addAttribute("yourhand", janken.yourhand);
+    model.addAttribute("syouhai", janken.syouhai);
+    model.addAttribute("user", loginUser);
+    model.addAttribute("user3", user);
+      return "match.html";
+  }
+
+
+/*
   @GetMapping("/match/gu")
-    public String gu(ModelMap model){
-      String hand ="Gu";
+  @Transactional
+    public String gu(ModelMap model, @RequestParam String hand){
+      //String hand ="Gu";
       Janken janken = new Janken(hand);
       Match match = new Match();
 
@@ -97,7 +132,7 @@ public class Lec02Controller {
       model.addAttribute("syouhai", janken.syouhai);
       return "match.html";
     }
-
+*/
   @GetMapping("lec02")
   public String sample38(Principal prin, ModelMap model) {
     String loginUser = prin.getName();
