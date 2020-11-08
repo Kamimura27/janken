@@ -9,20 +9,36 @@
 <body>
   <div><a href="/logout">ログアウト</a></div>
   <h1>Match</h1>
+  <div th:if="${user2}">
+    <h2>
+      [[${user}]] V.S. [[${user2.name}]]
+    </h2>
+    <p>
+      <a th:href="@{/result(id=${user2.id},hand=0)}">グー</a>
+      <a th:href="@{/result(id=${user2.id},hand=1)}">チョキ</a>
+      <a th:href="@{/result(id=${user2.id},hand=2)}">パー</a>
+    </p>
 
-  <h2>
-    [[${user}]] V.S. CPU
-  </h2>
-  <p>
-    <a href="/match/gu">グー</a>
-    <a href="/match/choki">チョキ</a>
-    <a href="/match/pa">パー</a>
-  </p>
+  </div>
+
+  <div th:if="${user3}">
+    <h2>
+      [[${user}]] V.S. [[${user3.name}]]
+    </h2>
+    <p>
+      <a th:href="@{/result(id=${user3.id},hand=0)}">グー</a>
+      <a th:href="@{/result(id=${user3.id},hand=1)}">チョキ</a>
+      <a th:href="@{/result(id=${user3.id},hand=2)}">パー</a>
+    </p>
+  </div>
+
+
   <div th:if="${syouhai}">
     あなたの手 [[${yourhand}]]</br>
     あいての手 Gu</br>
     結果 [[${syouhai}]]</br>
   </div>
+
   <a href="/lec02">もどる</a>
 </body>
 
