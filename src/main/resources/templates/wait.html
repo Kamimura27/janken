@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>wait</title>
+  <script>
+    window.onload = function () {
+      var sse = new EventSource('/live');
+      sse.onmessage = function (event) {
+        var w = document.getElementById("wait");
+        var result = "<a href='/lec02'>結果を見る</a>";
+        w.innerHTML = result;
+      }
+    }
+  </script>
+</head>
+<h1>
+  相手の手を待ってます
+</h1>
+
+<body>
+  Hi [[${user}]]
+  <div id = wait></div>
+</body>
+
+</html>
